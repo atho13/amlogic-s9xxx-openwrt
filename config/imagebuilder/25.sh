@@ -181,17 +181,16 @@ rebuild_firmware() {
 
     # Selecting default packages, lib, theme, app and i18n, etc.
     my_packages="\
-        attr base-files bash bc blkid btrfs-progs busybox bzip2 ip-full libc \
-        uhttpd uhttpd-mod-ubus luci-ssl openssh-sftp-server adb curl luci-app-tailscale-community \
-        cgi-io comgt comgt-ncm coreutils coreutils-stat coreutils-base64 coreutils-nohup \
-        curl dosfstools e2fsprogs exfat-mkfs f2fs-tools f2fsck fdisk gawk wget-ssl\
-        jq jshn kmod-brcmfmac kmod-brcmutil nano htop liblucihttp-lua ca-bundle \
-        losetup lsblk lscpu mkf2fs mount-utils openssl-util parted iconv gzip zram-swap \
-        perlbase-file perlbase-unicode perlbase-utf8 perlbase-essential perlbase-time \
-        perlbase-xsloader rpcd rpcd-mod-file rpcd-mod-iwinfo rpcd-mod-luci rpcd-mod-rrdns \
-        uhttpd uhttpd-mod-ubus openssh-sftp-server uqmi ppp ppp-mod-pppoe pv ntfs-3g tar ttyd \
-        kmod-usb2 kmod-usb-net-rndis wwan httping uclient-fetch unzip usb-modeswitch \
-        uuidgen xz xz-utils ziptool zoneinfo-asia zoneinfo-core UDPspeeder haproxy kmod-usb-storage \
+        attr base-files bash bc blkid block-mount blockd bsdtar btrfs-progs busybox bzip2 \
+        cgi-io chattr comgt comgt-ncm coremark coreutils coreutils-base64 coreutils-nohup \
+        coreutils-truncate curl dumpe2fs e2freefrag e2fsprogs \
+        exfat-mkfs f2fs-tools f2fsck fdisk gawk getopt git gzip hostapd-common iconv jq \
+        jshn kmod-brcmfmac kmod-brcmutil libjson-script liblucihttp \
+        liblucihttp-lua losetup lsattr lsblk lscpu mkf2fs mount-utils openssl-util parted \
+        perl-http-date perlbase-file perlbase-getopt perlbase-time perlbase-unicode perlbase-utf8 \
+        pigz ppp ppp-mod-pppoe pv rename resize2fs runc tar tini ttyd tune2fs \
+        uclient-fetch uhttpd uhttpd-mod-ubus unzip uqmi usb-modeswitch uuidgen wget-ssl \
+        which wpad-basic wwan xfs-fsck xfs-mkfs xz xz-utils ziptool zoneinfo-asia zoneinfo-core zstd \
         \
         luci luci-compat luci-lib-base kmod-usb-net-huawei-cdc-ncm kmod-usb-net kmod-usb-net-rndis \
         luci-lib-ip luci-lib-ipkg luci-lib-jsonc luci-lib-nixio luci-mod-admin-full luci-mod-network \
