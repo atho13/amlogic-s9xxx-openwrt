@@ -21,7 +21,7 @@ on:
       openwrt_board:
         description: "Select device board"
         required: false
-        default: "all"
+        default: "s905x-b860h"
         type: choice
         options:
           - all
@@ -218,7 +218,7 @@ on:
       openwrt_kernel:
         description: "Select kernel version"
         required: false
-        default: "6.12.y_6.18.y"
+        default: "6.18.y"
         type: choice
         options:
           - 5.10.y
@@ -240,10 +240,10 @@ on:
       kernel_repo:
         description: "Set the kernel repository"
         required: false
-        default: "ophub/kernel"
+        default: "ribel13/kernel"
         type: choice
         options:
-          - ophub/kernel
+          - ribel13/kernel
       kernel_usage:
         description: "Set the tags of the stable kernel."
         required: false
@@ -268,12 +268,12 @@ on:
       builder_name:
         description: "Set OpenWrt builder signature."
         required: false
-        default: "ophub"
+        default: "FRDMX"
         type: choice
         options:
           - ophub
           - angel
-          - yourname
+          - FRDMX
 
 env:
   TZ: Etc/UTC
@@ -355,7 +355,7 @@ jobs:
           armsr_tarfile_path="openwrt/output"
           [[ -d "${armsr_tarfile_path}" ]] || mkdir -p ${armsr_tarfile_path}
           ln -sf /builder/openwrt ${{ github.workspace }}/openwrt
-          ln -sf /builder/openwrt /home/runner/work/_actions/ophub/amlogic-s9xxx-openwrt/main/openwrt
+          ln -sf /builder/openwrt /home/runner/work/_actions/ribel13/amlogic-s9xxx-openwrt/main/openwrt
 
           # Query the latest release asset via GitHub API
           latest_version=$(curl -s \
@@ -383,7 +383,7 @@ jobs:
           # Download asset via GitHub API (binary stream)
           echo "Downloading: ${openwrt_filename}"
           curl -fsSL \
-               -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+               -H "Authorization: Bearer ${{ secrets.AKSI_TOKEN }}" \
                -H "Accept: application/octet-stream" \
                "${latest_url}" \
                -o "${armsr_tarfile_path}/${openwrt_filename}"
@@ -398,7 +398,7 @@ jobs:
 
       - name: Package OpenWrt for target boards
         if: ${{ steps.down.outputs.status == 'success' && !cancelled() }}
-        uses: ophub/amlogic-s9xxx-openwrt@main
+        uses: ribel13/amlogic-s9xxx-openwrt@main
         with:
           openwrt_path: openwrt/output/*rootfs.tar.gz
           openwrt_ip: ${{ inputs.openwrt_ip }}
@@ -419,7 +419,7 @@ jobs:
           removeArtifacts: false
           replacesArtifacts: true
           makeLatest: true
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.AKSI_TOKEN }}
           body: |
             ### OpenWrt Image Information
             - Default IP: `192.168.1.1`
