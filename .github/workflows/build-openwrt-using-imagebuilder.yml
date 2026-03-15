@@ -15,7 +15,7 @@ on:
       releases_branch:
         description: "Select the releases branch"
         required: false
-        default: "immortalwrt:24.10.5"
+        default: "openwrt:25.12.0"
         type: choice
         options:
           - openwrt:25.12.0
@@ -27,7 +27,7 @@ on:
       openwrt_board:
         description: "Select device board"
         required: false
-        default: "all"
+        default: "s905x-b860h"
         type: choice
         options:
           - all
@@ -224,7 +224,7 @@ on:
       openwrt_kernel:
         description: "Select kernel version"
         required: false
-        default: "6.12.y_6.18.y"
+        default: "6.18.y"
         type: choice
         options:
           - 5.10.y
@@ -246,10 +246,11 @@ on:
       kernel_repo:
         description: "Set the kernel repository"
         required: false
-        default: "ophub/kernel"
+        default: "ribel13/kernel"
         type: choice
         options:
           - ophub/kernel
+          - ribel13/kernel
       kernel_usage:
         description: "Set the tags of the stable kernel."
         required: false
@@ -271,11 +272,11 @@ on:
         options:
           - ophub
           - angel
-          - yourname
+          - FRDMX
 
 env:
-  TZ: Etc/UTC
-  IMAGEBUILDER_SH: config/imagebuilder/imagebuilder.sh
+  TZ: Etc/Jakarta
+  IMAGEBUILDER_SH: config/imagebuilder/25.sh
 
 jobs:
   build:
@@ -305,7 +306,7 @@ jobs:
           sudo -E apt-get clean
           sudo sed -i '/NVM_DIR/d;/skel/d' /root/{.bashrc,.profile}
           sudo rm -rf ~/{.cargo,.dotnet,.rustup}
-          sudo -E timedatectl set-timezone "${TZ:-Etc/UTC}"
+          sudo -E timedatectl set-timezone "${TZ}"
           sudo -E ntpdate ntp.ubuntu.com 0.pool.ntp.org || true
           sudo -E timedatectl set-ntp true
           date -u
@@ -341,7 +342,7 @@ jobs:
           echo "build_tag=OpenWrt_imagebuilder_${RELEASES_BRANCH/:/_}_$(date +"%Y.%m")" >> ${GITHUB_ENV}
           # Create symbolic link for packaging
           [[ -d "/builder/openwrt" ]] || mkdir -p /builder/openwrt
-          ln -sf /builder/openwrt /home/runner/work/_actions/ophub/amlogic-s9xxx-openwrt/main/openwrt
+          ln -sf /builder/openwrt /home/runner/work/_actions/ribel13/amlogic-s9xxx-openwrt/main/openwrt
           df -hT ${PWD}
           echo "status=success" >> ${GITHUB_OUTPUT}
 
@@ -359,7 +360,7 @@ jobs:
 
       - name: Package OpenWrt for target boards
         if: ${{ steps.imagebuilder.outputs.status == 'success' && !cancelled() }}
-        uses: ophub/amlogic-s9xxx-openwrt@main
+        uses: ribel13/amlogic-s9xxx-openwrt@main
         with:
           openwrt_path: output/*rootfs.tar.gz
           openwrt_ip: ${{ inputs.openwrt_ip }}
@@ -384,12 +385,7 @@ jobs:
           body: |
             ### OpenWrt Image Information
             - Default IP: `192.168.1.1`
-            - Default username: `root`
-            - Default password: `password`
-            - Default WIFI name: `OpenWrt`
+            - Default username: `frdmx`
+            - Default password: `root`
+            - Default WIFI name: `FRDMX-Wrt`
             - Default WIFI password: `none`
-            ### Install to EMMC
-            - Login to OpenWrt → `System` → `Amlogic Service` → `Install OpenWrt`
-            ### Applicable Platform
-            - 🐧 `arm64`
-            - 🐋 Docker image: https://hub.docker.com/u/ophub
