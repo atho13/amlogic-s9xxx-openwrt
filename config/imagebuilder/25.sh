@@ -209,7 +209,7 @@ rebuild_firmware() {
         dnsmasq-full attr base-files bash bc blkid block-mount blockd bsdtar btrfs-progs busybox bzip2 \
         cgi-io chattr comgt comgt-ncm coremark coreutils coreutils-base64 coreutils-nohup \
         coreutils-truncate curl dumpe2fs e2freefrag e2fsprogs fping exfat-mkfs f2fs-tools \
-        f2fsck fdisk getopt git gzip iconv jq json kmod-brcmfmac kmod-brcmutil libjson-script \
+        f2fsck fdisk getopt git gzip iconv jq kmod-brcmfmac kmod-brcmutil libjson-script \
         liblucihttp liblucihttp-lua lsattr lsblk lscpu mkf2fs mount-utils openssl-util wget-ssl \
         perl-http-date perlbase-file perlbase-getopt perlbase-time perlbase-unicode perlbase-utf8 \
         ppp ppp-mod-pppoe pv rename resize2fs runc tar tini ttyd tune2fs luci-app-ttyd luci-theme-material \
