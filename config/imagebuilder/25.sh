@@ -227,6 +227,10 @@ rebuild_firmware() {
         kmod-usb-serial-option kmod-usb-serial kmod-usb-serial-wwan qmi-utils kmod-usb-serial-qualcomm \
         kmod-usb-net-cdc-ncm kmod-usb-net-cdc-mbim luci-proto-modemmanager modemmanager modemmanager-rpcd libqmi libmbim glib2 \
         \
+        ipset libcap libcap-bin ruby ruby-yaml kmod-tun kmod-inet-diag kmod-nft-tproxy kmod-tun ip-full ca-bundle \
+        php8 php8-cli php8-fastcgi php8-fpm php8-mod-session php8-mod-ctype php8-mod-fileinfo php8-mod-zip \
+        php8-mod-iconv php8-mod-mbstring \
+        \
         ${config_list} \
         "
 
