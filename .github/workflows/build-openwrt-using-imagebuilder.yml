@@ -233,11 +233,6 @@ on:
           - 6.6.y
           - 6.12.y
           - 6.18.y
-          - 5.10.y_5.15.y
-          - 6.1.y_6.6.y
-          - 6.12.y_6.18.y
-          - 6.1.y_6.12.y
-          - 6.1.y_6.18.y
       auto_kernel:
         description: "Auto use the latest kernel"
         required: false
@@ -258,8 +253,6 @@ on:
         type: choice
         options:
           - stable
-          - flippy
-          - beta
       openwrt_ip:
         description: "Set OpenWrt default IP address."
         required: false
@@ -267,7 +260,7 @@ on:
       builder_name:
         description: "Set OpenWrt builder signature."
         required: false
-        default: "ophub"
+        default: "FRDMX"
         type: choice
         options:
           - ophub
@@ -385,7 +378,4 @@ jobs:
           body: |
             ### OpenWrt Image Information
             - Default IP: `192.168.1.1`
-            - Default username: `frdmx`
-            - Default password: `root`
-            - Default WIFI name: `FRDMX-Wrt`
-            - Default WIFI password: `none`
+            - Default username: `root`
