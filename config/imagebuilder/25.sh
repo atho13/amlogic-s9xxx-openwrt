@@ -159,20 +159,45 @@ custom_config() {
 # The FILES variable allows custom configuration files to be included in images built with Image Builder.
 # The [ files ] directory should be placed in the Image Builder root directory where you issue the make command.
 custom_files() {
-    cd ${imagebuilder_path}
-    echo -e "${STEPS} Adding custom files..."
+    # Pindah ke folder imagebuilder
+    cd "${imagebuilder_path}" || { echo "Gagal masuk ke direktori build"; exit 1; }
 
     if [[ -d "${custom_files_path}" ]]; then
-        # Copy custom files
-        [[ -d "files" ]] || mkdir -p files
-        cp -rf ${custom_files_path}/* files
+        echo -e "Menyalin file kustom dari: ${custom_files_path}"
+        
+        # 1. Pastikan folder target bersih
+        mkdir -p files
+        
+        # 2. Salin semua file
+        cp -rf "${custom_files_path}/." files/
 
-        sync && sleep 3
-        echo -e "${INFO} [ files ] directory contents: \n$(ls -lh files/ 2>/dev/null)"
-    else
-        echo -e "${INFO} No custom files added, skipped."
+        # 3. Atur izin akses (Rooting files)
+        # Menggunakan sudo agar file di dalam firmware benar-benar milik root
+        sudo chown -R 0:0 files/
+        find files/ -type d -exec chmod 755 {} +
+        find files/ -type f -exec chmod 644 {} +
+        
+        # Berikan izin eksekusi untuk skrip init (jika ada)
+        [ -d "files/etc/init.d" ] && sudo chmod -R +x files/etc/init.d/*
+        
+        echo "File kustom berhasil diproses."
     fi
 }
+#custom_files() {
+    #cd ${imagebuilder_path}
+    #echo -e "${STEPS} Adding custom files..."
+
+    #if [[ -d "${custom_files_path}" ]]; then
+        # Copy custom files
+        #[[ -d "files" ]] || mkdir -p files
+        #cp -rf ${custom_files_path}/* files
+
+        #sync && sleep 3
+        #echo -e "${INFO} [ files ] directory contents: \n$(ls -lh files/ 2>/dev/null)"
+    #else
+        #echo -e "${INFO} No custom files added, skipped."
+    #fi
+#}
 
 # Rebuild OpenWrt firmware
 rebuild_firmware() {
@@ -181,20 +206,17 @@ rebuild_firmware() {
 
     # Selecting default packages, lib, theme, app and i18n, etc.
     my_packages="\
-        attr base-files bash bc blkid block-mount blockd bsdtar btrfs-progs busybox bzip2 \
+        dnsmasq-full attr base-files bash bc blkid block-mount blockd bsdtar btrfs-progs busybox bzip2 \
         cgi-io chattr comgt comgt-ncm coremark coreutils coreutils-base64 coreutils-nohup \
-        coreutils-truncate curl dumpe2fs e2freefrag e2fsprogs fping \
-        exfat-mkfs f2fs-tools f2fsck fdisk getopt git gzip iconv jq \
-        json kmod-brcmfmac kmod-brcmutil libjson-script liblucihttp \
-        liblucihttp-lua lsattr lsblk lscpu mkf2fs mount-utils openssl-util \
+        coreutils-truncate curl dumpe2fs e2freefrag e2fsprogs fping exfat-mkfs f2fs-tools \
+        f2fsck fdisk getopt git gzip iconv jq json kmod-brcmfmac kmod-brcmutil libjson-script \
+        liblucihttp liblucihttp-lua lsattr lsblk lscpu mkf2fs mount-utils openssl-util wget-ssl \
         perl-http-date perlbase-file perlbase-getopt perlbase-time perlbase-unicode perlbase-utf8 \
-        ppp ppp-mod-pppoe pv rename resize2fs runc tar tini ttyd tune2fs luci-app-ttyd \
-        uclient-fetch uhttpd uhttpd-mod-ubus unzip uqmi usb-modeswitch uuidgen wget-ssl \
-        wwan xfs-fsck xfs-mkfs xz xz-utils ziptool zoneinfo-asia zoneinfo-core zstd \
-        dnsmasq-full libc zram-swap zoneinfo-core zoneinfo-asia bash screen \
-        uhttpd-mod-ubus luci luci-ssl openssh-sftp-server adb wget-ssl \
-        httping htop jq tar unzip coreutils-sleep coreutils-stat \
-        kmod-nls-utf8 kmod-macvlan usb-modeswitch kmod-usb-storage luci-theme-material \
+        ppp ppp-mod-pppoe pv rename resize2fs runc tar tini ttyd tune2fs luci-app-ttyd luci-theme-material \
+        uclient-fetch uhttpd uhttpd-mod-ubus unzip uqmi usb-modeswitch uuidgen zstd wwan xfs-fsck \
+        xfs-mkfs xz xz-utils ziptool zoneinfo-asia zoneinfo-core libc zram-swap zoneinfo-core \
+        zoneinfo-asia bash screen uhttpd-mod-ubus openssh-sftp-server adb wget-ssl httping htop jq tar \
+        unzip coreutils-sleep coreutils-stat kmod-nls-utf8 kmod-macvlan usb-modeswitch kmod-usb-storage \
         \
         luci luci-compat luci-lib-base kmod-usb-net-huawei-cdc-ncm kmod-usb-net kmod-usb-net-rndis \
         luci-lib-ip luci-lib-ipkg luci-lib-jsonc luci-lib-nixio luci-mod-admin-full luci-mod-network \
