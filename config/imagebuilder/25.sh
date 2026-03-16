@@ -223,13 +223,14 @@ rebuild_firmware() {
         kmod-usb-net-rtl8150 kmod-usb-net-rtl8152 kmod-usb-net-asix kmod-usb-net-asix-ax88179 kmod-mii \
         luci-mod-status luci-mod-system luci-proto-3g luci-proto-mbim mbim-utils picocom minicom \
         luci-proto-ncm luci-proto-ppp luci-proto-qmi screen kmod-tun ttyd kmod-usb-atm kmod-macvlan \
-        kmod-usb-wdm kmod-usb-net-qmi-wwan luci-proto-qmi kmod-usb-net-cdc-ether dbus dbus-utils ppp chat \
+        kmod-usb-wdm kmod-usb-net-qmi-wwan luci-proto-qmi kmod-usb-net-cdc-ether dbus dbus-utils chat \
         kmod-usb-serial-option kmod-usb-serial kmod-usb-serial-wwan qmi-utils kmod-usb-serial-qualcomm \
         kmod-usb-net-cdc-ncm kmod-usb-net-cdc-mbim luci-proto-modemmanager modemmanager modemmanager-rpcd libqmi libmbim glib2 \
         \
         ipset libcap libcap-bin ruby ruby-yaml kmod-tun kmod-inet-diag kmod-nft-tproxy kmod-tun ip-full ca-bundle \
-        php8 php8-cli php8-fastcgi php8-fpm php8-mod-session php8-mod-ctype php8-mod-fileinfo php8-mod-zip \
-        php8-mod-iconv php8-mod-mbstring haproxy tcpdump UDPspeeder fping irqbalance \
+        php8 php8-cli php8-fastcgi php8-fpm php8-mod-session php8-mod-ctype php8-mod-fileinfo php8-mod-zip php8-mod-curl \
+        php8-mod-iconv php8-mod-mbstring php8-cgi haproxy tcpdump UDPspeeder fping irqbalance kmod-dummy procps-ng-watch \
+        procps-ng-pkill dos2unix git-http bc python3-pip python3-setuptools python3-requests \
         \
         ${config_list} \
         "
