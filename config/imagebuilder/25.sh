@@ -229,7 +229,7 @@ rebuild_firmware() {
         \
         ipset libcap libcap-bin ruby ruby-yaml kmod-tun kmod-inet-diag kmod-nft-tproxy kmod-tun ip-full ca-bundle \
         php8 php8-cli php8-fastcgi php8-fpm php8-mod-session php8-mod-ctype php8-mod-fileinfo php8-mod-zip \
-        php8-mod-iconv php8-mod-mbstring \
+        php8-mod-iconv php8-mod-mbstring haproxy tcpdump UDPspeeder fping irqbalance \
         \
         ${config_list} \
         "
