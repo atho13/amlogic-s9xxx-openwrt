@@ -33,7 +33,8 @@ inputs:
   openwrt_size:
     description: "Set the rootfs size(Unit: MiB)."
     required: false
-    default: ""
+    default: "700"
+    #default: ""
   openwrt_ip:
     description: "Set the rootfs IP address."
     required: false
@@ -90,6 +91,13 @@ runs:
             [[ "${copy_from_path}" != /* ]] && copy_from_path="${{ github.workspace }}/${copy_from_path}"
             copy_to_path="make-openwrt/openwrt-files/common-files"
             cp -avf --no-preserve=ownership "${copy_from_path}/." -t "${copy_to_path}/" || true
+            # --- FIX --- 
+            sudo chown -R $USER:$USER "${copy_to_path}"
+            find "${copy_to_path}" -type d -exec chmod 755 {} +
+            find "${copy_to_path}" -type f -exec chmod 644 {} +
+            # Khusus untuk script di dalam /etc/init.d atau /usr/bin, beri izin eksekusi
+            find "${copy_to_path}" -name "*.sh" -exec chmod +x {} +
+            # ----
         else
             echo -e "Using the default OpenWrt files."
         fi
@@ -114,6 +122,11 @@ runs:
         sudo cp -vf ${openwrt_savepath}/${openwrt_savefile} -t ${openwrt_outpath}/ || true
         sync && sleep 3
 
+        # --- FIX ---
+        echo -e "Fixing file permissions for output directory..."
+        sudo chown -R $USER:$USER "${PWD}/${openwrt_outpath}"
+        sudo chmod -R 755 "${PWD}/${openwrt_outpath}"
+        # ---
         cd ${{ github.action_path }}
         echo -e "Setting output environment variables."
         echo "PACKAGED_OUTPUTPATH=${PWD}/${openwrt_outpath}" >> ${GITHUB_ENV}
