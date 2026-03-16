@@ -1,5 +1,5 @@
 ############## Read Only
-name: Build OpenWrt using ImageBuilder
+name: Only-25.12
 
 on:
   repository_dispatch:
