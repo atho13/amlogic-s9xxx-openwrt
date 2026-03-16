@@ -123,9 +123,14 @@ runs:
         sync && sleep 3
 
         # --- FIX ---
-        echo -e "Fixing file permissions for output directory..."
-        sudo chown -R $USER:$USER "${PWD}/${openwrt_outpath}"
-        sudo chmod -R 755 "${PWD}/${openwrt_outpath}"
+        OUTPUT_FULL_PATH="${{ github.action_path }}/${openwrt_outpath}"
+        if [[ -d "${OUTPUT_FULL_PATH}" ]]; then
+           echo -e "Fixing file permissions for: ${OUTPUT_FULL_PATH}"
+           sudo chown -R $USER:$USER "${OUTPUT_FULL_PATH}"
+           sudo chmod -R 755 "${OUTPUT_FULL_PATH}"
+           # OPSIONAL
+           sudo chmod 666 ${OUTPUT_FULL_PATH}/* || true
+        fi
         # ---
         cd ${{ github.action_path }}
         echo -e "Setting output environment variables."
