@@ -147,7 +147,7 @@ jobs:
           #ln -sf /builder/openwrt /home/runner/work/_actions/ribel13/amlogic-s9xxx-openwrt/main/openwrt
           #df -hT ${PWD}
           #echo "status=success" >> ${GITHUB_OUTPUT}
-       - name: Build Rootfs with Image Builder
+      - name: Build Rootfs with Image Builder
         id: imagebuilder
         if: ${{ steps.init.outputs.status }} == 'success' && !cancelled()
         run: |
