@@ -91,13 +91,6 @@ runs:
             [[ "${copy_from_path}" != /* ]] && copy_from_path="${{ github.workspace }}/${copy_from_path}"
             copy_to_path="make-openwrt/openwrt-files/common-files"
             cp -avf --no-preserve=ownership "${copy_from_path}/." -t "${copy_to_path}/" || true
-            # --- FIX --- 
-            #sudo chown -R $USER:$USER "${copy_to_path}"
-            #find "${copy_to_path}" -type d -exec chmod 755 {} +
-            #find "${copy_to_path}" -type f -exec chmod 644 {} +
-            # Khusus untuk script di dalam /etc/init.d atau /usr/bin, beri izin eksekusi
-            #find "${copy_to_path}" -name "*.sh" -exec chmod +x {} +
-            # ----
         else
             echo -e "Using the default OpenWrt files."
         fi
@@ -122,16 +115,6 @@ runs:
         sudo cp -vf ${openwrt_savepath}/${openwrt_savefile} -t ${openwrt_outpath}/ || true
         sync && sleep 3
 
-        ## --- FIX ---
-        #OUTPUT_FULL_PATH="${{ github.action_path }}/${openwrt_outpath}"
-        #if [[ -d "${OUTPUT_FULL_PATH}" ]]; then
-           #echo -e "Fixing file permissions for: ${OUTPUT_FULL_PATH}"
-           #sudo chown -R $USER:$USER "${OUTPUT_FULL_PATH}"
-           #sudo chmod -R 755 "${OUTPUT_FULL_PATH}"
-           # OPSIONAL
-           #sudo chmod 666 ${OUTPUT_FULL_PATH}/* || true
-        #fi
-        # ---
         cd ${{ github.action_path }}
         echo -e "Setting output environment variables."
         echo "PACKAGED_OUTPUTPATH=${PWD}/${openwrt_outpath}" >> ${GITHUB_ENV}
