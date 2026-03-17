@@ -153,6 +153,7 @@ jobs:
         if: steps.customize.outputs.status == 'success'
         run: |
           cd ${WORKING_DIR}
+          RELEASES_BRANCH="${{ inputs.releases_branch }}"
           mkdir -p compiled_images
           chmod +x 25.sh
 
