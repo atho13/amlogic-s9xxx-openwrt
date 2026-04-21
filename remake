@@ -77,15 +77,15 @@ ophub_release_file="etc/ophub-release"
 # Dependency files download repository
 depends_repo="https://github.com/ophub/amlogic-s9xxx-armbian"
 # U-BOOT files download repository
-# uboot_repo="https://github.com/ophub/u-boot"
-uboot_repo="https://github.com/ribel13/u-boot"
+uboot_repo="https://github.com/ophub/u-boot"
+# uboot_repo="https://github.com/ribel13/u-boot"
 # Firmware files download repository
 firmware_repo="https://github.com/ophub/firmware"
 # Install/Update script files download repository
 script_repo="https://github.com/ophub/luci-app-amlogic"
 
 # Set the kernel download repository
-kernel_repo="https://github.com/ribel13/kernel"
+kernel_repo="https://github.com/atho13/kernel"
 # Set the kernel tags (kernel_xxx) that can be overridden via the [ -u ] parameter
 default_tags="stable"
 kernel_usage=""
