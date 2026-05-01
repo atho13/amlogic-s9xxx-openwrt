@@ -28,7 +28,7 @@ on:
       openwrt_board:
         description: "Select device board"
         required: false
-        default: "all"
+        default: "s905x3-x96max"
         type: choice
         options:
           - all
@@ -244,7 +244,7 @@ on:
       openwrt_kernel:
         description: "Select kernel version"
         required: false
-        default: "6.12.y_6.18.y"
+        default: "6.18.y"
         type: choice
         options:
           - 5.10.y
@@ -266,9 +266,10 @@ on:
       kernel_repo:
         description: "Set the kernel repository"
         required: false
-        default: "ophub/kernel"
+        default: "atho13/kernel"
         type: choice
         options:
+          - atho13/kernel
           - ophub/kernel
       kernel_usage:
         description: "Set the tags of the stable kernel."
@@ -286,12 +287,12 @@ on:
       builder_name:
         description: "Set OpenWrt builder signature."
         required: false
-        default: "ophub"
+        default: "FRDMX"
         type: choice
         options:
           - ophub
           - angel
-          - yourname
+          - FRDMX
 
 env:
   TZ: Etc/UTC
