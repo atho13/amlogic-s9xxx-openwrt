@@ -85,12 +85,12 @@ firmware_repo="https://github.com/ophub/firmware"
 script_repo="https://github.com/ophub/luci-app-amlogic"
 
 # Set the kernel download repository
-kernel_repo="https://github.com/ophub/kernel"
+kernel_repo="https://github.com/atho13/kernel"
 # Set the kernel tags (kernel_xxx) that can be overridden via the [ -u ] parameter
 default_tags="stable"
 kernel_usage=""
 # Set the list of kernels used by default(Selectable version)
-stable_kernel=("6.12.y" "6.18.y")
+stable_kernel=("6.1.y" "6.6.y" "6.12.y" "6.18.y")
 flippy_kernel=(${stable_kernel[@]})
 beta_kernel=(${stable_kernel[@]})
 rk3588_kernel=("6.1.y")
@@ -118,8 +118,8 @@ ip_regex="^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01
 # Initialize the target build device list
 make_board="all"
 # Set OpenWrt firmware size (Unit: MiB, boot_mb >= 256, root_mb >= 1024)
-boot_mb="384"
-root_mb="1280"
+boot_mb="256"
+root_mb="1024"
 # Set OpenWrt builder signature
 builder_name=""
 
